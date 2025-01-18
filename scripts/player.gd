@@ -1,16 +1,29 @@
 class_name Player extends CharacterBody3D
 
+## SIGNALS
+signal health_changed
+
+## PLAYER INFO
+var current_health = 50
+const max_health = 100
+
+## KINEMATIC DEFAULTS
+# Forces
 @export var ACCELERATION := 3.4
 @export var FRICTION := 1
+@export var gravity := 9.81
 
+# Speeds
 @export var speed :float= 10
 @export var current_speed :float= speed
 @export var run_speed := 20
 
+
+## MOUSE/KEYBOARD/INPUT
+# Mouse settings
 @export var mouse_sensitivity = 0.006
 
-@export var gravity := 9.81
-
+# Player Movement
 var jump_count = 0
 @export var max_jumps = 3
 @export var jump_impulse := 6
@@ -29,16 +42,25 @@ func _ready():
 	$Hud/Control/Velocity.hide()
 	$Hud/Control/CurrentSpeed.hide()
 	
+	# Set HUD health amount to current_health
+	$"../HUD".set_health(current_health)
+
 func _process(_delta: float) -> void:
+	# Quit game on input
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
+	# Quick input to test player health change signals
+	if Input.is_action_just_released("test_input"):
+		change_health(20)
+		print(current_health)
+
 	update_labels()
 	hud_visibility()
 	
 func _physics_process(_delta: float) -> void:
 	if is_on_floor():
 		jump_count = 0
-		
+
 func _unhandled_input(event):
 	# Handle Mouse Movement
 	if event is InputEventMouseMotion:
@@ -74,3 +96,19 @@ func update_labels():
 	$Hud/Control/Velocity.text = velotext
 	
 	$Hud/Control/CurrentSpeed.text = "Current Speed: " + str(current_speed)
+
+
+## TAKE AND HANDLE DAMAGE FROM ENEMIES
+func _on_body_entered():
+	pass
+	# If damaging thing enters Area3D:
+	#	Call change health function
+
+func change_health(amount):
+	health_changed.emit(amount)
+	current_health += amount
+	
+	if current_health > max_health:
+		current_health = max_health
+	if current_health < 0:
+		current_health = 0

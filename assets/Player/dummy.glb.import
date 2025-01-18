@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://27run7njc7xd"
-path="res://.godot/imported/dummy.glb-d2470c69e7d6ea1058319eb21535bc9d.scn"
+path="res://.godot/imported/dummy.glb-36f9113563d433a8b361cf44a0cb632f.scn"
 
 [deps]
 
-source_file="res://Player/dummy.glb"
-dest_files=["res://.godot/imported/dummy.glb-d2470c69e7d6ea1058319eb21535bc9d.scn"]
+source_file="res://assets/Player/dummy.glb"
+dest_files=["res://.godot/imported/dummy.glb-36f9113563d433a8b361cf44a0cb632f.scn"]
 
 [params]
 
@@ -18,6 +18,7 @@ nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true

@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://djrya13pqpmwj"]
+[gd_scene load_steps=17 format=3 uid="uid://djrya13pqpmwj"]
 
 [ext_resource type="Material" uid="uid://u7jdafyhlaf6" path="res://Materials/grid.tres" id="1_cas5d"]
-[ext_resource type="PackedScene" uid="uid://duyb0w2ayelny" path="res://Player/player.tscn" id="1_mvqnx"]
+[ext_resource type="PackedScene" uid="uid://duyb0w2ayelny" path="res://scenes/player.tscn" id="1_mvqnx"]
+[ext_resource type="PackedScene" uid="uid://dtu0y14tfrmvc" path="res://scenes/hud.tscn" id="3_ys0t5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sveaq"]
 size = Vector3(100, 0.2, 100)
@@ -185,3 +186,12 @@ texture = SubResource("ViewportTexture_llxnc")
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.447, 0.0543385, 6.009)
 doppler_tracking = 1
+
+[node name="HUD" parent="." instance=ExtResource("3_ys0t5")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+grow_vertical = 1
+
+[connection signal="health_changed" from="Player" to="HUD" method="_on_player_health_changed"]
