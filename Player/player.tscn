@@ -1,0 +1,227 @@
+[gd_scene load_steps=15 format=3 uid="uid://duyb0w2ayelny"]
+
+[ext_resource type="Script" uid="uid://7mop8f38ra1w" path="res://Player/player.gd" id="1_t8h3g"]
+[ext_resource type="Script" uid="uid://cd18oofinnqir" path="res://Player/state_machine.gd" id="2_vbrc4"]
+[ext_resource type="Script" uid="uid://cdp6jb7a06cct" path="res://Player/states/idle.gd" id="3_5lg0j"]
+[ext_resource type="Script" uid="uid://ckugq861uw51f" path="res://Player/states/walking.gd" id="3_f4fvq"]
+[ext_resource type="Script" uid="uid://b0oxn1w2721t7" path="res://Player/states/jump.gd" id="4_1rude"]
+[ext_resource type="Script" uid="uid://c7v6ujk538yrt" path="res://Player/states/falling.gd" id="6_itb1u"]
+[ext_resource type="Script" uid="uid://dp7d3iwwtfv6w" path="res://Player/states/running.gd" id="8_br3hp"]
+[ext_resource type="PackedScene" path="res://dummy.tscn" id="13_a8b2x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0e5dj"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="LabelSettings" id="LabelSettings_shhj6"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_i6g18"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_d70g6"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sta3q"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rj3w6"]
+font_size = 8
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_t8h3g")
+
+[node name="FPCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70488, -0.087685)
+
+[node name="LookAt" type="Node3D" parent="FPCam"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.236136, -0.932452)
+
+[node name="MovementCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0e5dj")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_vbrc4")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_5lg0j")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("3_f4fvq")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("4_1rude")
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("6_itb1u")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("8_br3hp")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+metadata/_edit_group_ = true
+
+[node name="Crosshair" type="TextureRect" parent="Hud/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Statelabel" type="Label" parent="Hud/Control"]
+layout_mode = 1
+offset_left = 8.0
+offset_right = 56.0
+offset_bottom = 23.0
+text = "State"
+label_settings = SubResource("LabelSettings_shhj6")
+
+[node name="Globalposition" type="Label" parent="Hud/Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 121.0
+offset_bottom = 32.0
+text = "Globalposition"
+label_settings = SubResource("LabelSettings_i6g18")
+
+[node name="Velocity" type="Label" parent="Hud/Control"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 18.0
+offset_right = 70.0
+offset_bottom = 41.0
+text = "Velocity"
+label_settings = SubResource("LabelSettings_d70g6")
+
+[node name="CurrentSpeed" type="Label" parent="Hud/Control"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 28.0
+offset_right = 65.0
+offset_bottom = 51.0
+text = "Current Speed"
+label_settings = SubResource("LabelSettings_sta3q")
+
+[node name="Control2" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Hud/Control2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "X"
+label_settings = SubResource("LabelSettings_rj3w6")
+
+[node name="dummy" parent="." instance=ExtResource("13_a8b2x")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="GeneralSkeleton" parent="dummy/Armature" index="0"]
+bones/55/rotation = Quaternion(0.13524, 0.0850444, 0.984206, -0.0762623)
+bones/56/rotation = Quaternion(-0.0384639, 0.992578, -0.114579, 0.0134838)
+bones/57/rotation = Quaternion(-0.0410903, 0.710582, -0.700735, 0.0485357)
+bones/58/rotation = Quaternion(-9.13731e-08, 0.999075, 0.0429963, 6.37142e-08)
+bones/60/rotation = Quaternion(-0.0904664, -0.0101558, 0.995416, -0.0293275)
+bones/61/rotation = Quaternion(0.0330231, 0.994404, -0.0560472, -0.0832372)
+bones/62/rotation = Quaternion(0.00965961, 0.685274, -0.727659, -0.0286048)
+bones/63/rotation = Quaternion(1.05367e-07, 0.997981, 0.0635122, -3.02931e-08)
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="dummy/Armature/GeneralSkeleton" index="2"]
+target_node = NodePath("../../../../FPCam/LookAt")
+bone_name = "Head"
+bone = 5
+
+[node name="BoneAttachment3D2" parent="dummy/Hit_Collision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17687e-05, 1.21361, -0.0264963)
+
+[node name="BoneAttachment3D3" parent="dummy/Hit_Collision" index="1"]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.187578, 1.43567, -0.0617147)
+
+[node name="BoneAttachment3D4" parent="dummy/Hit_Collision" index="2"]
+transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.187638, 1.43564, -0.0617141)
+
+[node name="BoneAttachment3D5" parent="dummy/Hit_Collision" index="3"]
+transform = Transform3D(-0.951788, 0.173118, 0.253237, -0.127113, -0.973903, 0.18803, 0.279179, 0.146775, 0.948955, 0.0912445, 0.931355, -0.000553292)
+
+[node name="BoneAttachment3D6" parent="dummy/Hit_Collision" index="4"]
+transform = Transform3D(-0.981912, 0.0602236, -0.179508, -0.0565486, -0.998074, -0.0255248, -0.180699, -0.0149122, 0.983425, -0.0912445, 0.931355, -0.000553297)
+
+[node name="BoneAttachment3D7" parent="dummy/Hit_Collision" index="5"]
+transform = Transform3D(0.941629, 0.025383, 0.335694, -0.0233519, -0.989827, 0.140347, 0.335841, -0.139994, -0.931457, -0.0682759, 0.526176, -0.0121068)
+
+[node name="BoneAttachment3D8" parent="dummy/Hit_Collision" index="6"]
+transform = Transform3D(0.930326, 0.179932, -0.319559, 0.200688, -0.9791, 0.0329637, -0.306949, -0.0947988, -0.946993, 0.162546, 0.535337, 0.0534546)
+
+[node name="BoneAttachment3D9" parent="dummy/Hit_Collision" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4555e-05, 1.60075, -0.00340756)
+
+[node name="BoneAttachment3D10" parent="dummy/Hit_Collision" index="8"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0.461625, 1.4357, -0.0617148)
+
+[node name="BoneAttachment3D11" parent="dummy/Hit_Collision" index="9"]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.461684, 1.43561, -0.0617139)
+
+[node name="BoneAttachment3D12" parent="dummy/Hit_Collision" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75701e-08, 0.997919, 4.84474e-07)
+
+[node name="BoneAttachment3D13" parent="dummy/Hit_Collision" index="11"]
+transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.737829, 1.43559, -0.0617137)
+
+[node name="BoneAttachment3D14" parent="dummy/Hit_Collision" index="12"]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.73777, 1.43572, -0.0617148)
+
+[node name="BoneAttachment3D15" parent="dummy/Hit_Collision" index="13"]
+transform = Transform3D(-0.930078, -0.363205, -0.0551063, -0.0274714, -0.0808211, 0.99635, -0.366333, 0.928197, 0.0651921, -0.0483819, 0.112809, -0.0893424)
+
+[node name="BoneAttachment3D16" parent="dummy/Hit_Collision" index="14"]
+transform = Transform3D(-0.941908, 0.331086, -0.0564958, -0.0756653, -0.0452872, 0.996104, 0.327238, 0.942513, 0.0677082, 0.229347, 0.123833, -0.00515543)
+
+[editable path="dummy"]
