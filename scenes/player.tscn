@@ -195,19 +195,19 @@ transform = Transform3D(-0.951788, 0.173118, 0.253237, -0.127113, -0.973903, 0.1
 transform = Transform3D(-0.981912, 0.0602236, -0.179508, -0.0565486, -0.998074, -0.0255248, -0.180699, -0.0149122, 0.983425, -0.0912445, 0.931355, -0.000553297)
 
 [node name="BoneAttachment3D7" parent="dummy/Hit_Collision" index="5"]
-transform = Transform3D(0.941629, 0.025383, 0.335694, -0.0233519, -0.989827, 0.140347, 0.335841, -0.139994, -0.931457, -0.0682759, 0.526176, -0.0121068)
+transform = Transform3D(0.941629, 0.025383, 0.335694, -0.0233519, -0.989827, 0.140347, 0.335841, -0.139994, -0.931457, -0.0682758, 0.526175, -0.0121068)
 
 [node name="BoneAttachment3D8" parent="dummy/Hit_Collision" index="6"]
 transform = Transform3D(0.930326, 0.179932, -0.319559, 0.200688, -0.9791, 0.0329637, -0.306949, -0.0947988, -0.946993, 0.162546, 0.535337, 0.0534546)
 
 [node name="BoneAttachment3D9" parent="dummy/Hit_Collision" index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4555e-05, 1.60075, -0.00340756)
+transform = Transform3D(1, 2.93328e-06, 2.41399e-05, -1.13687e-13, 0.992698, -0.120625, -2.43174e-05, 0.120625, 0.992698, -4.4555e-05, 1.60075, -0.00340755)
 
 [node name="BoneAttachment3D10" parent="dummy/Hit_Collision" index="8"]
 transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0.461625, 1.4357, -0.0617148)
 
 [node name="BoneAttachment3D11" parent="dummy/Hit_Collision" index="9"]
-transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.461684, 1.43561, -0.0617139)
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.461684, 1.43562, -0.061714)
 
 [node name="BoneAttachment3D12" parent="dummy/Hit_Collision" index="10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75701e-08, 0.997919, 4.84474e-07)
@@ -216,7 +216,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75701e-08, 0.997919, 4.844
 transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.737829, 1.43559, -0.0617137)
 
 [node name="BoneAttachment3D14" parent="dummy/Hit_Collision" index="12"]
-transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.73777, 1.43572, -0.0617148)
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.73777, 1.43572, -0.0617147)
 
 [node name="BoneAttachment3D15" parent="dummy/Hit_Collision" index="13"]
 transform = Transform3D(-0.930078, -0.363205, -0.0551063, -0.0274714, -0.0808211, 0.99635, -0.366333, 0.928197, 0.0651921, -0.0483819, 0.112809, -0.0893424)
