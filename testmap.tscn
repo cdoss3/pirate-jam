@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://djrya13pqpmwj"]
 
 [ext_resource type="Material" uid="uid://u7jdafyhlaf6" path="res://Materials/grid.tres" id="1_cas5d"]
-[ext_resource type="PackedScene" uid="uid://duyb0w2ayelny" path="res://Player/player.tscn" id="1_mvqnx"]
+[ext_resource type="PackedScene" uid="uid://duyb0w2ayelny" path="res://scenes/player.tscn" id="1_mvqnx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sveaq"]
 size = Vector3(100, 0.2, 100)
