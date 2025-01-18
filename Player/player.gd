@@ -6,7 +6,6 @@ class_name Player extends CharacterBody3D
 @export var speed :float= 10
 @export var current_speed :float= speed
 @export var run_speed := 20
-@export var wallrun_speed = 22
 
 @export var mouse_sensitivity = 0.006
 
@@ -15,19 +14,6 @@ class_name Player extends CharacterBody3D
 var jump_count = 0
 @export var max_jumps = 3
 @export var jump_impulse := 6
-
-@export var dash_ready = true
-@export var dash_impulse := 4
-@export var dash_cooldown :float= 1
-
-@export var groundslam_impulse := 100
-
-@export var wallrun_dragdown = 0.1
-@export var wallrun_resets_jump = true
-
-@export var crouch_slowdown := 2
-
-@export var slide_slowdown := 0.1
 
 @onready var fsm := $StateMachine
 @onready var label := $Hud/Control/Statelabel
@@ -61,9 +47,6 @@ func _unhandled_input(event):
 		# Locks the Camera Movement between specified angles
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(87))
 
-func _on_dash_cooldown_timeout() -> void:
-	dash_ready = true
-
 var hud_visible = false
 func hud_visibility():
 	if Input.is_action_just_pressed("f3") && !hud_visible:
@@ -80,7 +63,7 @@ func hud_visibility():
 		$Hud/Control/CurrentSpeed.hide()
 		
 		hud_visible = false
-		
+
 func update_labels():
 	label.text = "State: " + fsm.state.name
 	

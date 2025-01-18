@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://duyb0w2ayelny"]
+[gd_scene load_steps=14 format=3 uid="uid://duyb0w2ayelny"]
 
 [ext_resource type="Script" uid="uid://7mop8f38ra1w" path="res://Player/player.gd" id="1_t8h3g"]
 [ext_resource type="Script" uid="uid://cd18oofinnqir" path="res://Player/state_machine.gd" id="2_vbrc4"]
@@ -33,19 +33,16 @@ font_size = 8
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_rj3w6"]
-font_size = 8
-
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_t8h3g")
 
 [node name="FPCam" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70488, -0.087685)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70488, -0.114793)
 
-[node name="LookAt" type="Node3D" parent="FPCam"]
+[node name="Look_At" type="Node3D" parent="FPCam"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.236136, -0.932452)
 
-[node name="MovementCollision" type="CollisionShape3D" parent="."]
+[node name="Movement_Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_0e5dj")
 
@@ -129,38 +126,6 @@ offset_bottom = 51.0
 text = "Current Speed"
 label_settings = SubResource("LabelSettings_sta3q")
 
-[node name="Control2" type="Control" parent="Hud"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="Hud/Control2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "X"
-label_settings = SubResource("LabelSettings_rj3w6")
-
 [node name="dummy" parent="." instance=ExtResource("13_a8b2x")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
@@ -174,8 +139,8 @@ bones/61/rotation = Quaternion(0.0330231, 0.994404, -0.0560472, -0.0832372)
 bones/62/rotation = Quaternion(0.00965961, 0.685274, -0.727659, -0.0286048)
 bones/63/rotation = Quaternion(1.05367e-07, 0.997981, 0.0635122, -3.02931e-08)
 
-[node name="LookAtModifier3D" type="LookAtModifier3D" parent="dummy/Armature/GeneralSkeleton" index="2"]
-target_node = NodePath("../../../../FPCam/LookAt")
+[node name="Head_Move" type="LookAtModifier3D" parent="dummy/Armature/GeneralSkeleton" index="2"]
+target_node = NodePath("../../../../FPCam/Look_At")
 bone_name = "Head"
 bone = 5
 
