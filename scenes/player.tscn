@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://duyb0w2ayelny"]
+[gd_scene load_steps=21 format=3 uid="uid://duyb0w2ayelny"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_t8h3g"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="2_vbrc4"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/states/jump.gd" id="4_1rude"]
 [ext_resource type="Script" path="res://scripts/states/falling.gd" id="6_itb1u"]
 [ext_resource type="Script" path="res://scripts/states/running.gd" id="8_br3hp"]
-[ext_resource type="Script" path="res://scripts/ui/options.gd" id="8_ku6nf"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="8_ku6nf"]
 [ext_resource type="PackedScene" uid="uid://bp35vrolpnn2p" path="res://scenes/dummy.tscn" id="13_a8b2x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0e5dj"]
@@ -36,6 +36,60 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rj3w6"]
 font_size = 8
+
+[sub_resource type="Animation" id="Animation_8spxx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1000, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_d5nxk"]
+resource_name = "option_slideIn"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 0.5),
+"update": 0,
+"values": [Vector2(-1000, 0), Vector2(-500, 0), Vector2(-100, 0), Vector2(3.73, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r5vxk"]
+resource_name = "option_slideOut"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.333333, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4.85, 0), Vector2(-100, 0), Vector2(-500, 0), Vector2(-1000, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bigvi"]
+_data = {
+"RESET": SubResource("Animation_8spxx"),
+"option_slideIn": SubResource("Animation_d5nxk"),
+"option_slideOut": SubResource("Animation_r5vxk")
+}
 
 [sub_resource type="LabelSettings" id="LabelSettings_3mhyg"]
 font_size = 40
@@ -135,15 +189,9 @@ label_settings = SubResource("LabelSettings_sta3q")
 
 [node name="Control2" type="Control" parent="Hud"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -165,8 +213,7 @@ grow_vertical = 2
 text = "X"
 label_settings = SubResource("LabelSettings_rj3w6")
 
-[node name="Options" type="Control" parent="Hud"]
-visible = false
+[node name="PauseMenu" type="Control" parent="Hud"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -175,7 +222,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_ku6nf")
 
-[node name="ColorRect" type="ColorRect" parent="Hud/Options"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hud/PauseMenu"]
+libraries = {
+"": SubResource("AnimationLibrary_bigvi")
+}
+
+[node name="ColorRect" type="ColorRect" parent="Hud/PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -184,7 +236,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0784314, 0.117647, 0.164706, 0.458824)
 
-[node name="MarginContainer" type="MarginContainer" parent="Hud/Options/ColorRect"]
+[node name="MarginContainer" type="MarginContainer" parent="Hud/PauseMenu/ColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -196,10 +248,10 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="Panel" type="Panel" parent="Hud/Options/ColorRect/MarginContainer"]
+[node name="Panel" type="Panel" parent="Hud/PauseMenu/ColorRect/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Hud/Options/ColorRect/MarginContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -211,49 +263,100 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "PLACE HOLDER"
 label_settings = SubResource("LabelSettings_3mhyg")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="OptionsButton" type="Button" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="OptionsButton" type="Button" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "OPTIONS"
 
-[node name="InfoButton" type="Button" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="InfoButton" type="Button" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "LOGBOOK"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ResumeButton" type="Button" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="ResumeButton" type="Button" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "RESUME"
 
-[node name="MenuButton" type="Button" parent="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="MenuButton" type="Button" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MAIN MENU"
+
+[node name="Options" type="ColorRect" parent="Hud/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1000.0
+offset_right = -1000.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0452638, 0.0585484, 0.128157, 0.564706)
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud/PauseMenu/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Panel" type="Panel" parent="Hud/PauseMenu/Options/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "again, add options later (and maybe put it as a task)"
+
+[node name="Close" type="Button" parent="Hud/PauseMenu/Options"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -26.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = 26.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 7
+text = "x"
+clip_text = true
 
 [node name="dummy" parent="." instance=ExtResource("13_a8b2x")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -328,9 +431,10 @@ transform = Transform3D(-0.930078, -0.363205, -0.0551063, -0.0274714, -0.0808211
 [node name="BoneAttachment3D16" parent="dummy/Hit_Collision" index="14"]
 transform = Transform3D(-0.941908, 0.331086, -0.0564958, -0.0756653, -0.0452872, 0.996104, 0.327238, 0.942513, 0.0677082, 0.229347, 0.123833, -0.00515543)
 
-[connection signal="pressed" from="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="Hud/Options" method="_on_options_button_pressed"]
-[connection signal="pressed" from="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/InfoButton" to="Hud/Options" method="_on_info_button_pressed"]
-[connection signal="pressed" from="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/ResumeButton" to="Hud/Options" method="_on_resume_button_pressed"]
-[connection signal="pressed" from="Hud/Options/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/MenuButton" to="Hud/Options" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="Hud/PauseMenu" method="_on_options_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/InfoButton" to="Hud/PauseMenu" method="_on_info_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/ResumeButton" to="Hud/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/MenuButton" to="Hud/PauseMenu" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/Options/Close" to="Hud/PauseMenu" method="_on_options_button_pressed"]
 
 [editable path="dummy"]

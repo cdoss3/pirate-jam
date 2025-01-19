@@ -64,7 +64,7 @@ func _ready():
 func _process(_delta: float) -> void:
 	# Changes: Now input doesn't quit but opens options tab
 	if Input.is_action_just_pressed("ui_cancel"):
-		tab_set_visibility($Hud/Options, !$Hud/Options.visible)
+		tab_set_visibility($Hud/PauseMenu, !$Hud/PauseMenu.visible)
 	# Quick input to test player health change signals
 	if Input.is_action_just_released("test_input"):
 		change_health(20)

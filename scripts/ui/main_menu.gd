@@ -1,15 +1,17 @@
 
 extends Control
 
-@onready var ANIMATION : AnimationPlayer = $AnimationPlayer
+@onready var animation_player : AnimationPlayer = $AnimationPlayer
 
 
-
+var optionsVisible := false 
 func _on_options_button_pressed() -> void:
-	ANIMATION.play("option_slideIn")
-
-func _on_close_pressed() -> void:
-	ANIMATION.play("option_slideOut")
+	if optionsVisible:
+		animation_player.play("option_slideOut")
+		optionsVisible = false 
+	else:
+		animation_player.play("option_slideIn")
+		optionsVisible = true 
 
 # ------------------------------------------------------------------------------------------------ #
 
