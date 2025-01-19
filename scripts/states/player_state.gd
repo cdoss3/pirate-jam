@@ -7,11 +7,6 @@ const RUNNING = "Running"
 const WALKING = "Walking"
 const JUMPING = "Jumping"
 const FALLING = "Falling"
-const DASH = "Dash"
-const GROUNDSLAM = "Groundslam"
-const WALLRUN = "Wallrun"
-const CROUCH = "Crouch"
-const SLIDE = "Slide"
 
 var player: Player
 
