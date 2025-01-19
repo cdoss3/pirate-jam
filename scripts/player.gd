@@ -46,9 +46,9 @@ func _ready():
 	$"../HUD".set_health(current_health)
 
 func _process(_delta: float) -> void:
-	# Quit game on input
+	# Changes: Now input doesn't quit but opens options tab
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
+		tab_set_visibility($Hud/PauseMenu, !$Hud/PauseMenu.visible)
 	# Quick input to test player health change signals
 	if Input.is_action_just_released("test_input"):
 		change_health(20)
@@ -85,7 +85,7 @@ func hud_visibility():
 		$Hud/Control/CurrentSpeed.hide()
 		
 		hud_visible = false
-		
+
 func update_labels():
 	label.text = "State: " + fsm.state.name
 	
@@ -112,3 +112,23 @@ func change_health(amount):
 		current_health = max_health
 	if current_health < 0:
 		current_health = 0
+
+var tab_opened = [false, Node]
+func tab_set_visibility(node : Node, state : bool):
+	if state:
+		if !tab_opened[0]:
+			node.visible = true
+			tab_opened[0] = true
+			tab_opened[1] = node
+			
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			printerr("Cannot open a new tab while one is already open.")
+	else:
+		if node == tab_opened[1]:
+			tab_opened[0] = false
+			tab_opened[1] = Node
+			
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+		node.visible = state

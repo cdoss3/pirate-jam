@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="PirateJam"
-run/main_scene="res://testmap.tscn"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+run/main_scene="res://scenes/main_menu.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
@@ -22,6 +22,10 @@ window/size/viewport_height=480
 window/size/mode=3
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
+
+[dotnet]
+
+project/assembly_name="PirateJam"
 
 [input]
 
