@@ -24,8 +24,7 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !$"..".tab_opened:
-		state.physics_update(delta)
+	state.physics_update(delta)
 
 
 func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:
