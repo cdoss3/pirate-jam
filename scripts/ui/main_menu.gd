@@ -5,6 +5,7 @@ extends Control
 
 
 var optionsVisible := false 
+
 func _on_options_button_pressed() -> void:
 	if optionsVisible:
 		animation_player.play("option_slideOut")
