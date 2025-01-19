@@ -4,8 +4,8 @@ class_name Player extends CharacterBody3D
 signal health_changed
 
 ## PLAYER INFO
-var current_health = 50
-const max_health = 100
+var current_health := 100
+const max_health := 100
 
 ## KINEMATIC DEFAULTS
 # Forces
@@ -15,19 +15,19 @@ const max_health = 100
 
 # Speeds
 @export var speed :float= 10
-@export var current_speed :float= speed
+var current_speed :float= speed
 @export var run_speed := 20
-
 
 ## MOUSE/KEYBOARD/INPUT
 # Mouse settings
-@export var mouse_sensitivity = 0.006
+@export var mouse_sensitivity := 0.006
 
-# Player Movement
-var jump_count = 0
-@export var max_jumps = 3
+## Player Movement
+var jump_count := 0
+@export var max_jumps := 3
 @export var jump_impulse := 6
 
+## NODE REFERENCES
 @onready var fsm := $StateMachine
 @onready var label := $Hud/Control/Statelabel
 @onready var camera := $FPCam
@@ -85,7 +85,7 @@ func hud_visibility():
 		$Hud/Control/CurrentSpeed.hide()
 		
 		hud_visible = false
-
+		
 func update_labels():
 	label.text = "State: " + fsm.state.name
 	
