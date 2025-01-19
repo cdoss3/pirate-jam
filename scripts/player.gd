@@ -25,9 +25,9 @@ const max_health = 100
 @export var mouse_sensitivity = 0.006
 
 # Player Movement
+var jump_count = 0
 @export var max_jumps = 3
 @export var jump_impulse := 6
-var jump_count: int = 0
 
 @export var dash_ready = true
 @export var dash_impulse := 4
@@ -74,8 +74,9 @@ func _process(_delta: float) -> void:
 	hud_visibility()
 	
 func _physics_process(_delta: float) -> void:
-	jump_count = 0
-	
+	if is_on_floor():
+		jump_count = 0
+
 func _unhandled_input(event):
 	# Handle Mouse Movement
 	if event is InputEventMouseMotion:
