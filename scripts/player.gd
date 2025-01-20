@@ -32,6 +32,9 @@ var jump_count := 0
 @onready var label := $Hud/Control/Statelabel
 @onready var camera := $FPCam
 
+## PRELOADS
+
+
 func _ready():
 	#Capture Mouse Movement
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

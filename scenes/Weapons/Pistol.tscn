@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dah1twi5onj21"]
+
+[ext_resource type="Script" uid="uid://c6ykk55c8uluf" path="res://scripts/Weapons/WeaponB.gd" id="1_ab5uy"]
+[ext_resource type="PackedScene" uid="uid://cm4xpt8q03ily" path="res://scenes/Weapons/low-poly_g17.glb" id="1_chj1e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_chj1e"]
+size = Vector3(0.800903, 0.571045, 0.14502)
+
+[node name="Pistol" type="RigidBody3D"]
+script = ExtResource("1_ab5uy")
+
+[node name="Weapon Model" parent="." instance=ExtResource("1_chj1e")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0288696, -0.0780029, -0.0065918)
+shape = SubResource("BoxShape3D_chj1e")
