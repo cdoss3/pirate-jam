@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://222dxyo0onba"]
+[gd_scene load_steps=9 format=3 uid="uid://222dxyo0onba"]
 
 [ext_resource type="Script" uid="uid://c3w7334swbsfq" path="res://scripts/ui/main_menu.gd" id="1_xdi6e"]
+[ext_resource type="Texture2D" uid="uid://c5esu0nwrv5gu" path="res://assets/cogs.png" id="2_ekxnf"]
 
 [sub_resource type="Animation" id="Animation_8spxx"]
 length = 0.001
@@ -59,6 +60,11 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_iq4ol"]
 font_size = 40
 
+[sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -80,7 +86,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.132631, 0.237418, 0.270463, 1)
+color = Color(0.117647, 0.117647, 0.117647, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu"]
 layout_mode = 1
@@ -158,7 +164,7 @@ layout_mode = 0
 offset_left = -1000.0
 offset_right = -352.0
 offset_bottom = 480.0
-color = Color(0.0892825, 0.0301104, 0.0604671, 0.458824)
+color = Color(0.117647, 0.117647, 0.117647, 0)
 metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="Options"]
@@ -180,6 +186,7 @@ layout_mode = 2
 metadata/_edit_lock_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Options/MarginContainer/Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -190,22 +197,45 @@ text = "put inside of here the stuff for the options menu.
 (To be Continued)"
 metadata/_edit_lock_ = true
 
+[node name="Cogs" type="Sprite2D" parent="Options/MarginContainer/Panel"]
+texture_filter = 3
+position = Vector2(42, 42)
+scale = Vector2(0.96875, 0.96875)
+texture = ExtResource("2_ekxnf")
+
+[node name="Label" type="Label" parent="Options/MarginContainer/Panel"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 18.0
+offset_right = 394.0
+offset_bottom = 63.0
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_ekxnf")
+
+[node name="Cogs2" type="Sprite2D" parent="Options/MarginContainer/Panel"]
+texture_filter = 3
+position = Vector2(546, 378)
+scale = Vector2(0.961421, 0.984375)
+texture = ExtResource("2_ekxnf")
+flip_h = true
+flip_v = true
+
 [node name="Close" type="Button" parent="Options"]
+texture_filter = 3
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -26.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = 26.0
+offset_left = -72.0
+offset_top = 40.0
+offset_right = -52.0
+offset_bottom = 60.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 7
 text = "x"
 clip_text = true
-metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/InfoButton" to="." method="_on_info_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://duyb0w2ayelny"]
+[gd_scene load_steps=22 format=3 uid="uid://duyb0w2ayelny"]
 
 [ext_resource type="Script" uid="uid://7mop8f38ra1w" path="res://scripts/player.gd" id="1_t8h3g"]
 [ext_resource type="Script" uid="uid://cd18oofinnqir" path="res://scripts/state_machine.gd" id="2_vbrc4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c7v6ujk538yrt" path="res://scripts/states/falling.gd" id="6_itb1u"]
 [ext_resource type="Script" uid="uid://dp7d3iwwtfv6w" path="res://scripts/states/running.gd" id="8_br3hp"]
 [ext_resource type="Script" uid="uid://mygyuq43g71" path="res://scripts/ui/pause_menu.gd" id="8_ku6nf"]
+[ext_resource type="Texture2D" uid="uid://c5esu0nwrv5gu" path="res://assets/cogs.png" id="9_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://bp35vrolpnn2p" path="res://scenes/dummy.tscn" id="13_a8b2x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0e5dj"]
@@ -89,7 +90,14 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_3mhyg"]
-font_size = 40
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y4r1p"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_t8h3g")
@@ -205,7 +213,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0784314, 0.117647, 0.164706, 0.458824)
+color = Color(0.0784314, 0.117647, 0.164706, 0)
 
 [node name="MarginContainer" type="MarginContainer" parent="Hud/PauseMenu/ColorRect"]
 layout_mode = 1
@@ -242,11 +250,13 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+texture_filter = 3
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "PLACE HOLDER"
+text = "Pause Menue"
 label_settings = SubResource("LabelSettings_3mhyg")
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -284,7 +294,7 @@ layout_mode = 0
 offset_left = -1000.0
 offset_right = -352.0
 offset_bottom = 480.0
-color = Color(0.0452638, 0.0585484, 0.128157, 0.564706)
+color = Color(0.0470588, 0.0588235, 0.129412, 0)
 
 [node name="MarginContainer" type="MarginContainer" parent="Hud/PauseMenu/Options"]
 layout_mode = 1
@@ -304,6 +314,7 @@ layout_mode = 2
 metadata/_edit_lock_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -314,16 +325,39 @@ text = "again, add options later (and maybe put it as a task)
 (To be continued)"
 metadata/_edit_lock_ = true
 
+[node name="Cogs" type="Sprite2D" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+texture_filter = 3
+position = Vector2(34, 34)
+texture = ExtResource("9_y4r1p")
+
+[node name="Cogs2" type="Sprite2D" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+texture_filter = 3
+position = Vector2(554, 386)
+texture = ExtResource("9_y4r1p")
+flip_h = true
+flip_v = true
+
+[node name="Label" type="Label" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+texture_filter = 3
+layout_mode = 0
+offset_left = 10.0
+offset_top = 18.0
+offset_right = 151.0
+offset_bottom = 63.0
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_y4r1p")
+
 [node name="Close" type="Button" parent="Hud/PauseMenu/Options"]
+texture_filter = 3
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -26.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = 26.0
+offset_left = -64.0
+offset_top = 40.0
+offset_right = -44.0
+offset_bottom = 60.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 7
@@ -334,14 +368,14 @@ clip_text = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="GeneralSkeleton" parent="dummy/Armature" index="0"]
-bones/55/rotation = Quaternion(0.136389, 0.0859417, 0.983854, -0.0777457)
-bones/56/rotation = Quaternion(-0.0384865, 0.992441, -0.115373, 0.0164251)
-bones/57/rotation = Quaternion(-0.0414775, 0.710138, -0.701128, 0.0490275)
+bones/55/rotation = Quaternion(0.13524, 0.0850444, 0.984206, -0.0762623)
+bones/56/rotation = Quaternion(-0.0384639, 0.992578, -0.114579, 0.0134838)
+bones/57/rotation = Quaternion(-0.0410903, 0.710582, -0.700735, 0.0485357)
 bones/58/rotation = Quaternion(-9.13731e-08, 0.999075, 0.0429963, 6.37142e-08)
-bones/60/rotation = Quaternion(-0.0899596, -0.0115767, 0.995417, -0.0303088)
-bones/61/rotation = Quaternion(0.0321906, 0.994728, -0.049506, -0.0838413)
-bones/62/rotation = Quaternion(0.0115715, 0.687202, -0.725926, -0.0255155)
-bones/63/rotation = Quaternion(2.03455e-07, 0.998049, 0.0624279, -2.32141e-08)
+bones/60/rotation = Quaternion(-0.0904664, -0.0101558, 0.995416, -0.0293275)
+bones/61/rotation = Quaternion(0.0330231, 0.994404, -0.0560472, -0.0832372)
+bones/62/rotation = Quaternion(0.00965961, 0.685274, -0.727659, -0.0286048)
+bones/63/rotation = Quaternion(1.05367e-07, 0.997981, 0.0635122, -3.02931e-08)
 
 [node name="LookAtModifier3D" type="LookAtModifier3D" parent="dummy/Armature/GeneralSkeleton" index="2"]
 target_node = NodePath("../../../../FPCam/LookAt")
@@ -358,16 +392,16 @@ transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.187578, 1.43567, -0.06171
 transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.187638, 1.43564, -0.0617141)
 
 [node name="BoneAttachment3D5" parent="dummy/Hit_Collision" index="3"]
-transform = Transform3D(-0.950707, 0.176424, 0.25501, -0.129538, -0.973139, 0.190315, 0.281737, 0.147901, 0.948024, 0.0912445, 0.931355, -0.000553292)
+transform = Transform3D(-0.951788, 0.173118, 0.253237, -0.127113, -0.973903, 0.18803, 0.279179, 0.146775, 0.948955, 0.0912445, 0.931355, -0.000553292)
 
 [node name="BoneAttachment3D6" parent="dummy/Hit_Collision" index="4"]
-transform = Transform3D(-0.981977, 0.0624227, -0.178393, -0.0582569, -0.997895, -0.0285004, -0.179796, -0.0175941, 0.983546, -0.0912445, 0.931355, -0.000553297)
+transform = Transform3D(-0.981912, 0.0602236, -0.179508, -0.0565486, -0.998074, -0.0255248, -0.180699, -0.0149122, 0.983425, -0.0912445, 0.931355, -0.000553297)
 
 [node name="BoneAttachment3D7" parent="dummy/Hit_Collision" index="5"]
-transform = Transform3D(0.941466, 0.0257842, 0.336122, -0.0195366, -0.991222, 0.130759, 0.336542, -0.129672, -0.932697, -0.067389, 0.526259, -0.0131939)
+transform = Transform3D(0.941629, 0.025383, 0.335694, -0.0233519, -0.989827, 0.140347, 0.335841, -0.139994, -0.931457, -0.0682758, 0.526175, -0.0121068)
 
 [node name="BoneAttachment3D8" parent="dummy/Hit_Collision" index="6"]
-transform = Transform3D(0.927183, 0.181507, -0.3277, 0.202597, -0.978768, 0.0310999, -0.315097, -0.0952263, -0.94427, 0.163876, 0.535641, 0.0539101)
+transform = Transform3D(0.930326, 0.179932, -0.319559, 0.200688, -0.9791, 0.0329637, -0.306949, -0.0947988, -0.946993, 0.162546, 0.535337, 0.0534546)
 
 [node name="BoneAttachment3D9" parent="dummy/Hit_Collision" index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4555e-05, 1.60075, -0.00340755)
@@ -388,10 +422,10 @@ transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.737829, 1.43559, -0.0617
 transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.73777, 1.43572, -0.0617147)
 
 [node name="BoneAttachment3D15" parent="dummy/Hit_Collision" index="13"]
-transform = Transform3D(-0.932482, -0.356853, -0.0559756, -0.0305892, -0.0763952, 0.996608, -0.359919, 0.931032, 0.0603213, -0.0473179, 0.112118, -0.0861133)
+transform = Transform3D(-0.930078, -0.363205, -0.0551063, -0.0274714, -0.0808211, 0.99635, -0.366333, 0.928197, 0.0651921, -0.0483819, 0.112809, -0.0893424)
 
 [node name="BoneAttachment3D16" parent="dummy/Hit_Collision" index="14"]
-transform = Transform3D(-0.938947, 0.339209, -0.0575734, -0.0763346, -0.0422169, 0.996188, 0.335486, 0.939763, 0.0655326, 0.231179, 0.124234, -0.0048036)
+transform = Transform3D(-0.941908, 0.331086, -0.0564958, -0.0756653, -0.0452872, 0.996104, 0.327238, 0.942513, 0.0677082, 0.229347, 0.123833, -0.00515543)
 
 [connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="Hud/PauseMenu" method="_on_options_button_pressed"]
 [connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/InfoButton" to="Hud/PauseMenu" method="_on_info_button_pressed"]
