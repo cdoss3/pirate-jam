@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bevfhgm7ksacu"]
+
+[ext_resource type="Script" uid="uid://c13agafi3w0qs" path="res://scripts/Enemies/enemy.gd" id="1_5alqo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8tegq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7p1mj"]
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
+script = ExtResource("1_5alqo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_8tegq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7p1mj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

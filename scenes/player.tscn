@@ -1,0 +1,451 @@
+[gd_scene load_steps=25 format=3 uid="uid://duyb0w2ayelny"]
+
+[ext_resource type="Script" uid="uid://7mop8f38ra1w" path="res://scripts/player.gd" id="1_t8h3g"]
+[ext_resource type="PackedScene" uid="uid://dah1twi5onj21" path="res://scenes/Weapons/Pistol.tscn" id="2_d2wvv"]
+[ext_resource type="Script" uid="uid://cd18oofinnqir" path="res://scripts/state_machine.gd" id="2_vbrc4"]
+[ext_resource type="Script" uid="uid://cdp6jb7a06cct" path="res://scripts/states/idle.gd" id="3_5lg0j"]
+[ext_resource type="Script" uid="uid://ckugq861uw51f" path="res://scripts/states/walking.gd" id="3_f4fvq"]
+[ext_resource type="Script" uid="uid://b0oxn1w2721t7" path="res://scripts/states/jump.gd" id="4_1rude"]
+[ext_resource type="Script" uid="uid://c7v6ujk538yrt" path="res://scripts/states/falling.gd" id="6_itb1u"]
+[ext_resource type="Script" uid="uid://dp7d3iwwtfv6w" path="res://scripts/states/running.gd" id="8_br3hp"]
+[ext_resource type="Script" uid="uid://mygyuq43g71" path="res://scripts/ui/pause_menu.gd" id="8_ku6nf"]
+[ext_resource type="Texture2D" uid="uid://c5esu0nwrv5gu" path="res://assets/cogs.png" id="9_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://bp35vrolpnn2p" path="res://scenes/dummy.tscn" id="13_a8b2x"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0e5dj"]
+radius = 0.35
+height = 1.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_d2wvv"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_3v2ag"]
+mesh = SubResource("BoxMesh_d2wvv")
+
+[sub_resource type="LabelSettings" id="LabelSettings_shhj6"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_i6g18"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_d70g6"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sta3q"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_8spxx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1000, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_d5nxk"]
+resource_name = "option_slideIn"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 0.5),
+"update": 0,
+"values": [Vector2(-1000, 0), Vector2(-500, 0), Vector2(-100, 0), Vector2(3.73, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r5vxk"]
+resource_name = "option_slideOut"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.333333, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4.85, 0), Vector2(-100, 0), Vector2(-500, 0), Vector2(-1000, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bigvi"]
+_data = {
+&"RESET": SubResource("Animation_8spxx"),
+&"option_slideIn": SubResource("Animation_d5nxk"),
+&"option_slideOut": SubResource("Animation_r5vxk")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_3mhyg"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y4r1p"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_t8h3g")
+
+[node name="FPCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70488, -0.114793)
+
+[node name="HitRay" type="RayCast3D" parent="FPCam"]
+target_position = Vector3(0, 0, -200)
+
+[node name="Look_At" type="Node3D" parent="FPCam"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.236136, -0.932452)
+
+[node name="Hand" type="Node3D" parent="FPCam"]
+
+[node name="Pistol" parent="FPCam/Hand" instance=ExtResource("2_d2wvv")]
+transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, 0.161, -0.15, -0.28)
+
+[node name="Movement_Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0e5dj")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_vbrc4")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_5lg0j")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("3_f4fvq")
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource("4_1rude")
+
+[node name="Falling" type="Node" parent="StateMachine"]
+script = ExtResource("6_itb1u")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("8_br3hp")
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+metadata/_edit_group_ = true
+
+[node name="Crosshair" type="TextureRect" parent="Hud/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("MeshTexture_3v2ag")
+
+[node name="Statelabel" type="Label" parent="Hud/Control"]
+layout_mode = 1
+offset_left = 8.0
+offset_right = 56.0
+offset_bottom = 23.0
+text = "State"
+label_settings = SubResource("LabelSettings_shhj6")
+
+[node name="Globalposition" type="Label" parent="Hud/Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 121.0
+offset_bottom = 32.0
+text = "Globalposition"
+label_settings = SubResource("LabelSettings_i6g18")
+
+[node name="Velocity" type="Label" parent="Hud/Control"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 18.0
+offset_right = 70.0
+offset_bottom = 41.0
+text = "Velocity"
+label_settings = SubResource("LabelSettings_d70g6")
+
+[node name="CurrentSpeed" type="Label" parent="Hud/Control"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 28.0
+offset_right = 65.0
+offset_bottom = 51.0
+text = "Current Speed"
+label_settings = SubResource("LabelSettings_sta3q")
+
+[node name="PauseMenu" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_ku6nf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hud/PauseMenu"]
+libraries = {
+&"": SubResource("AnimationLibrary_bigvi")
+}
+
+[node name="ColorRect" type="ColorRect" parent="Hud/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0784314, 0.117647, 0.164706, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud/PauseMenu/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Panel" type="Panel" parent="Hud/PauseMenu/ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+texture_filter = 3
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Pause Menu"
+label_settings = SubResource("LabelSettings_3mhyg")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionsButton" type="Button" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "OPTIONS"
+
+[node name="InfoButton" type="Button" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LOGBOOK"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RESUME"
+
+[node name="MenuButton" type="Button" parent="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MAIN MENU"
+
+[node name="Options" type="ColorRect" parent="Hud/PauseMenu"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -1000.0
+offset_right = -352.0
+offset_bottom = 480.0
+color = Color(0.0470588, 0.0588235, 0.129412, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud/PauseMenu/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="Hud/PauseMenu/Options/MarginContainer"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "again, add options later (and maybe put it as a task)
+(To be continued)"
+metadata/_edit_lock_ = true
+
+[node name="Cogs" type="Sprite2D" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+texture_filter = 3
+position = Vector2(34, 34)
+texture = ExtResource("9_y4r1p")
+
+[node name="Cogs2" type="Sprite2D" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+texture_filter = 3
+position = Vector2(554, 386)
+texture = ExtResource("9_y4r1p")
+flip_h = true
+flip_v = true
+
+[node name="Label" type="Label" parent="Hud/PauseMenu/Options/MarginContainer/Panel"]
+texture_filter = 3
+layout_mode = 0
+offset_left = 10.0
+offset_top = 18.0
+offset_right = 151.0
+offset_bottom = 63.0
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_y4r1p")
+
+[node name="Close" type="Button" parent="Hud/PauseMenu/Options"]
+texture_filter = 3
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = 40.0
+offset_right = -44.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 7
+text = "x"
+clip_text = true
+
+[node name="dummy" parent="." instance=ExtResource("13_a8b2x")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="GeneralSkeleton" parent="dummy/Armature" index="0"]
+bones/55/rotation = Quaternion(0.13693, 0.0801415, 0.984439, -0.0755533)
+bones/56/rotation = Quaternion(-0.0380806, 0.993063, -0.110842, 0.00948229)
+bones/57/rotation = Quaternion(-0.0419499, 0.711235, -0.699952, 0.0495279)
+bones/58/rotation = Quaternion(-9.13731e-08, 0.999075, 0.0429963, 6.37142e-08)
+bones/60/rotation = Quaternion(-0.0916644, -0.0116354, 0.995318, -0.0283744)
+bones/61/rotation = Quaternion(0.0340141, 0.994063, -0.0611179, -0.0833423)
+bones/62/rotation = Quaternion(0.00875115, 0.680477, -0.732134, -0.0292354)
+bones/63/rotation = Quaternion(1.8352e-07, 0.998078, 0.0619756, -1.62039e-08)
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="dummy/Armature/GeneralSkeleton" index="2"]
+target_node = NodePath("../../../../FPCam/LookAt")
+bone_name = "Head"
+bone = 5
+
+[node name="BoneAttachment3D2" parent="dummy/Hit_Collision" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17687e-05, 1.21361, -0.0264963)
+
+[node name="BoneAttachment3D3" parent="dummy/Hit_Collision" index="1"]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.187578, 1.43567, -0.0617147)
+
+[node name="BoneAttachment3D4" parent="dummy/Hit_Collision" index="2"]
+transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.187638, 1.43564, -0.0617141)
+
+[node name="BoneAttachment3D5" parent="dummy/Hit_Collision" index="3"]
+transform = Transform3D(-0.951084, 0.170703, 0.257488, -0.126808, -0.975738, 0.17848, 0.281707, 0.137098, 0.949655, 0.0912445, 0.931355, -0.000553292)
+
+[node name="BoneAttachment3D6" parent="dummy/Hit_Collision" index="4"]
+transform = Transform3D(-0.981585, 0.0586162, -0.18181, -0.05435, -0.998119, -0.0283638, -0.183131, -0.0179601, 0.982925, -0.0912445, 0.931355, -0.000553297)
+
+[node name="BoneAttachment3D7" parent="dummy/Hit_Collision" index="5"]
+transform = Transform3D(0.94087, 0.024786, 0.337861, -0.0287781, -0.987867, 0.152612, 0.337544, -0.153311, -0.928741, -0.0689157, 0.526177, -0.0133475)
+
+[node name="BoneAttachment3D8" parent="dummy/Hit_Collision" index="6"]
+transform = Transform3D(0.93221, 0.179076, -0.314511, 0.200411, -0.979029, 0.0365797, -0.301365, -0.0971316, -0.948549, 0.161541, 0.53464, 0.0495162)
+
+[node name="BoneAttachment3D9" parent="dummy/Hit_Collision" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4555e-05, 1.60075, -0.00340755)
+
+[node name="BoneAttachment3D10" parent="dummy/Hit_Collision" index="8"]
+transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0.461625, 1.4357, -0.0617148)
+
+[node name="BoneAttachment3D11" parent="dummy/Hit_Collision" index="9"]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.461684, 1.43562, -0.061714)
+
+[node name="BoneAttachment3D12" parent="dummy/Hit_Collision" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75701e-08, 0.997919, 4.84474e-07)
+
+[node name="BoneAttachment3D13" parent="dummy/Hit_Collision" index="11"]
+transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.737829, 1.43559, -0.0617137)
+
+[node name="BoneAttachment3D14" parent="dummy/Hit_Collision" index="12"]
+transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.73777, 1.43572, -0.0617147)
+
+[node name="BoneAttachment3D15" parent="dummy/Hit_Collision" index="13"]
+transform = Transform3D(-0.928648, -0.367678, -0.0492587, -0.0212134, -0.0799343, 0.996575, -0.370356, 0.926511, 0.0664311, -0.04923, 0.113874, -0.0961226)
+
+[node name="BoneAttachment3D16" parent="dummy/Hit_Collision" index="14"]
+transform = Transform3D(-0.943769, 0.326436, -0.0523441, -0.0728504, -0.0509043, 0.996043, 0.322479, 0.943848, 0.0718228, 0.228082, 0.123242, -0.0101203)
+
+[connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="Hud/PauseMenu" method="_on_options_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/InfoButton" to="Hud/PauseMenu" method="_on_info_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/ResumeButton" to="Hud/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/MenuButton" to="Hud/PauseMenu" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Hud/PauseMenu/Options/Close" to="Hud/PauseMenu" method="_on_options_button_pressed"]
+
+[editable path="dummy"]
