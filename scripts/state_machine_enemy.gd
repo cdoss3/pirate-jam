@@ -1,4 +1,4 @@
-class_name StateMachine extends Node
+class_name StateMachineEnemy extends Node
 
 @export var initial_state: State = null
 
@@ -24,15 +24,15 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !$"..".tab_opened[0]:
-		state.physics_update(delta)
+	print(state)
+	state.physics_update(delta)
 
 
 func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:
 	if not has_node(target_state_path):
 		printerr(owner.name + ": Trying to transition to state " + target_state_path + " but it does not exist.")
 		return
-
+	
 	var previous_state_path := state.name
 	state.exit()
 	state = get_node(target_state_path)

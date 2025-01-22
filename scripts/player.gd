@@ -146,7 +146,7 @@ func tab_set_visibility(node : Node, state : bool):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
 		node.visible = state
-		
+
 func shoot():
 	if pistol.current_ammo != 0:
 		print("Shot!")

@@ -6,10 +6,10 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	
 	
 	player.current_speed = player.speed
-	
+
 func exit():
 	$"../../dummy/Movement"["parameters/conditions/is_walking"] = false
-	
+
 func physics_update(delta: float) -> void:
 	var input_dir = Input.get_vector("walk_left", "walk_right", "walk_forwards", "walk_backwards")
 	var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
