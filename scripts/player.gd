@@ -27,10 +27,16 @@ var jump_count := 0
 @export var max_jumps := 3
 @export var jump_impulse := 6
 
+## Weapon Handling
+var collider
+
 ## NODE REFERENCES
 @onready var fsm := $StateMachine
 @onready var label := $Hud/Control/Statelabel
 @onready var camera := $FPCam
+@onready var pistol := $FPCam/Hand/Pistol
+@onready var hit_ray := $FPCam/HitRay
+
 
 ## PRELOADS
 
@@ -47,6 +53,8 @@ func _ready():
 	
 	# Set HUD health amount to current_health
 	$"../HUD".set_health(current_health)
+	
+	Global.player = self
 
 func _process(_delta: float) -> void:
 	# Changes: Now input doesn't quit but opens options tab
@@ -56,9 +64,12 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_released("test_input"):
 		change_health(20)
 		print(current_health)
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
 
 	update_labels()
 	hud_visibility()
+
 	
 func _physics_process(_delta: float) -> void:
 	if is_on_floor():
@@ -135,3 +146,16 @@ func tab_set_visibility(node : Node, state : bool):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
 		node.visible = state
+		
+func shoot():
+	if pistol.current_ammo != 0:
+		print("Shot!")
+		pistol.current_ammo -= 1
+		if hit_ray.is_colliding():
+			collider = hit_ray.get_collider()
+			if collider.is_in_group("Enemy"):
+				print("Its an Enemy")
+				collider.queue_free()
+	else:
+		pistol.current_ammo = 0;
+		print("No Ammo!")

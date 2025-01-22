@@ -1,11 +1,8 @@
-extends RigidBody3D
+extends Node3D
 
-var dropped = false
+var collider
 
-func _ready():
-	pass
-	
-func _process(delta):
-	if dropped == true:
-		apply_impulse(transform.basis.z, -transform.basis.z * 10)
-		dropped = false
+@export_group("Weapon Settings")
+@export var mag_size = 10
+@export var current_ammo = 10
+@export var reload_speed = 10
