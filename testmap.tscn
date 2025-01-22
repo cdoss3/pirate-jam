@@ -207,4 +207,10 @@ shape = SubResource("BoxShape3D_35odk")
 [node name="Enemy" parent="." instance=ExtResource("5_6seei")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.4454, 1.1, 31.9208)
 
+[node name="Enemy2" parent="." instance=ExtResource("5_6seei")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.4433, 1.1, 25.1692)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_6seei")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.8091, 1.1, 29.0016)
+
 [connection signal="health_changed" from="Player" to="HUD" method="_on_player_health_changed"]
