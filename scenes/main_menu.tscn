@@ -1,0 +1,245 @@
+[gd_scene load_steps=9 format=3 uid="uid://222dxyo0onba"]
+
+[ext_resource type="Script" uid="uid://c3w7334swbsfq" path="res://scripts/ui/main_menu.gd" id="1_xdi6e"]
+[ext_resource type="Texture2D" uid="uid://c5esu0nwrv5gu" path="res://assets/cogs.png" id="2_ekxnf"]
+
+[sub_resource type="Animation" id="Animation_8spxx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1000, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_d5nxk"]
+resource_name = "option_slideIn"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 0.5),
+"update": 0,
+"values": [Vector2(-1000, 0), Vector2(-500, 0), Vector2(-100, 0), Vector2(3.73, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_r5vxk"]
+resource_name = "option_slideOut"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Options:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.333333, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4.85, 0), Vector2(-100, 0), Vector2(-500, 0), Vector2(-1000, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bigvi"]
+_data = {
+&"RESET": SubResource("Animation_8spxx"),
+&"option_slideIn": SubResource("Animation_d5nxk"),
+&"option_slideOut": SubResource("Animation_r5vxk")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_iq4ol"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xdi6e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_bigvi")
+}
+
+[node name="Menu" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Menu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PLACE HOLDER"
+label_settings = SubResource("LabelSettings_iq4ol")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionsButton" type="Button" parent="Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "OPTIONS"
+
+[node name="InfoButton" type="Button" parent="Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LOGBOOK"
+
+[node name="CreditsButton" type="Button" parent="Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CREDITS"
+
+[node name="StartButton" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "START"
+
+[node name="Control2" type="HBoxContainer" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Menu/MarginContainer/VBoxContainer/Control2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuitButton" type="Button" parent="Menu/MarginContainer/VBoxContainer/Control2"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "QUIT"
+
+[node name="Control2" type="Control" parent="Menu/MarginContainer/VBoxContainer/Control2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Options" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -1000.0
+offset_right = -352.0
+offset_bottom = 480.0
+color = Color(0.117647, 0.117647, 0.117647, 0)
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="Options/MarginContainer"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Options/MarginContainer/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "put inside of here the stuff for the options menu.
+(To be Continued)"
+metadata/_edit_lock_ = true
+
+[node name="Cogs" type="Sprite2D" parent="Options/MarginContainer/Panel"]
+texture_filter = 3
+position = Vector2(42, 42)
+scale = Vector2(0.96875, 0.96875)
+texture = ExtResource("2_ekxnf")
+
+[node name="Label" type="Label" parent="Options/MarginContainer/Panel"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 18.0
+offset_right = 394.0
+offset_bottom = 63.0
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_ekxnf")
+
+[node name="Cogs2" type="Sprite2D" parent="Options/MarginContainer/Panel"]
+texture_filter = 3
+position = Vector2(546, 378)
+scale = Vector2(0.961421, 0.984375)
+texture = ExtResource("2_ekxnf")
+flip_h = true
+flip_v = true
+
+[node name="Close" type="Button" parent="Options"]
+texture_filter = 3
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_top = 40.0
+offset_right = -52.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 7
+text = "x"
+clip_text = true
+
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/InfoButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Control2/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Options/Close" to="." method="_on_options_button_pressed"]
