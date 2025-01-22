@@ -1,21 +1,24 @@
 extends CharacterBody3D
 
+@onready var player := get_tree().get_first_node_in_group("Player")
+
 ## Declarations
-var current_location
-var next_location
-#var new_vel
-var SPEED = 3.0
+var target 
+var local_dest
+var direction
+var player_pos
+
+## Exports
+@export var SPEED = 50.0
 
 ## Preloads
 @onready var nav_agent := $NavigationAgent3D
 
-func _physics_process(delta: float) -> void:
-	current_location = get_global_transform()
-	next_location = nav_agent.get_next_path_position()
-	var new_vel : Vector3 = (next_location - current_location).normalized() * SPEED
+func _physics_process(_delta: float) -> void:
+	player_pos = player.global_transform
+	target = nav_agent.set_target_position(player_pos)
+	#nav_agent.get_next_path_position()
+	local_dest = target - global_position
+	direction = local_dest.normalized
 	
-	velocity = new_vel
-	
-	
-func update_target_location(target_position):
-	nav_agent.get_next_path_position()
+	velocity = direction

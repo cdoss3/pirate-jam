@@ -53,6 +53,8 @@ func _ready():
 	
 	# Set HUD health amount to current_health
 	$"../HUD".set_health(current_health)
+	
+	Global.player = self
 
 func _process(_delta: float) -> void:
 	# Changes: Now input doesn't quit but opens options tab
@@ -67,6 +69,7 @@ func _process(_delta: float) -> void:
 
 	update_labels()
 	hud_visibility()
+
 	
 func _physics_process(_delta: float) -> void:
 	if is_on_floor():
