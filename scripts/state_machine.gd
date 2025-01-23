@@ -13,6 +13,8 @@ func _ready() -> void:
 
 	await owner.ready
 	state.enter("")
+	#set_physics_process(true)
+	#set_process(true)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -24,8 +26,11 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if !$"..".tab_opened[0]:
-		state.physics_update(delta)
+	if owner is Player:
+		if $"..".tab_opened[0]:
+			return
+	
+	state.physics_update(delta)
 
 
 func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:

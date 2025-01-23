@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=3 uid="uid://bevfhgm7ksacu"]
+
+[ext_resource type="Script" uid="uid://c13agafi3w0qs" path="res://scripts/Enemies/charging_enemy.gd" id="1_5alqo"]
+[ext_resource type="Script" uid="uid://cd18oofinnqir" path="res://scripts/state_machine.gd" id="2_iq8kd"]
+[ext_resource type="Script" uid="uid://2tt86pvdb124" path="res://scripts/states/enemy states/idle_for_rand.gd" id="3_0th86"]
+[ext_resource type="Script" uid="uid://bwrsn4s1aoqum" path="res://scripts/states/enemy states/charge_at_player.gd" id="4_8swre"]
+[ext_resource type="Script" uid="uid://dkxxe85lkfg1s" path="res://scripts/states/enemy states/attack.gd" id="5_uqk7a"]
+[ext_resource type="Script" uid="uid://b84k7y5vilpk7" path="res://scripts/states/enemy_state.gd" id="6_uqsge"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8tegq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ona5g"]
+transparency = 1
+albedo_color = Color(0.362466, 0.686737, 0.7416, 0.223529)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bqhw6"]
+material = SubResource("StandardMaterial3D_ona5g")
+size = Vector3(0.4, 0.75, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7p1mj"]
+
+[sub_resource type="Resource" id="Resource_8swre"]
+metadata/__load_path__ = "res://scripts/states/enemy_states.gd"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8swre"]
+radius = 2.0
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
+script = ExtResource("1_5alqo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_8tegq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.469241, 0.237557)
+mesh = SubResource("BoxMesh_bqhw6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7p1mj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 1.0
+max_speed = 200.0
+avoidance_priority = 0.5
+debug_enabled = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_iq8kd")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = ExtResource("2_iq8kd")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_0th86")
+Minimum = 2.0
+Maximum = 5.5
+finished_state = "ChargeAtPlayer"
+metadata/_custom_type_script = SubResource("Resource_8swre")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("5_uqk7a")
+finished_state = "- not used -"
+metadata/_custom_type_script = ExtResource("6_uqsge")
+
+[node name="ChargeAtPlayer" type="Node" parent="StateMachine"]
+script = ExtResource("4_8swre")
+finished_state = "Idle"
+
+[node name="Proximity" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Proximity"]
+shape = SubResource("SphereShape3D_8swre")
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://u7jdafyhlaf6" path="res://materials/grid.tres" id="1_cas5d"]
 [ext_resource type="PackedScene" uid="uid://duyb0w2ayelny" path="res://scenes/player.tscn" id="1_mvqnx"]
 [ext_resource type="PackedScene" uid="uid://dtu0y14tfrmvc" path="res://scenes/hud.tscn" id="3_ys0t5"]
-[ext_resource type="PackedScene" uid="uid://bevfhgm7ksacu" path="res://scenes/Enemies/enemy.tscn" id="5_6seei"]
+[ext_resource type="PackedScene" uid="uid://bevfhgm7ksacu" path="res://scenes/Enemies/charging_enemy.tscn" id="5_6seei"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_llxnc"]
 viewport_path = NodePath("SubViewport")

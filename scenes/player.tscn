@@ -1,22 +1,22 @@
-[gd_scene load_steps=25 format=3 uid="uid://duyb0w2ayelny"]
+[gd_scene load_steps=28 format=3 uid="uid://duyb0w2ayelny"]
 
 [ext_resource type="Script" uid="uid://7mop8f38ra1w" path="res://scripts/player.gd" id="1_t8h3g"]
-[ext_resource type="PackedScene" uid="uid://dah1twi5onj21" path="res://scenes/Weapons/Pistol.tscn" id="2_d2wvv"]
 [ext_resource type="Shader" uid="uid://d4ljvkwmjtnyt" path="res://materials/shaderscripts/palette_swap.gdshader" id="2_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://dah1twi5onj21" path="res://scenes/Weapons/Pistol.tscn" id="2_d2wvv"]
 [ext_resource type="Script" uid="uid://cd18oofinnqir" path="res://scripts/state_machine.gd" id="2_vbrc4"]
-[ext_resource type="Texture2D" uid="uid://dmv1lh563cr1x" path="res://assets/palette.png" id="3_3v2ag"]
-[ext_resource type="Script" uid="uid://cdp6jb7a06cct" path="res://scripts/states/idle.gd" id="3_5lg0j"]
-[ext_resource type="Script" uid="uid://ckugq861uw51f" path="res://scripts/states/walking.gd" id="3_f4fvq"]
-[ext_resource type="Script" uid="uid://b0oxn1w2721t7" path="res://scripts/states/jump.gd" id="4_1rude"]
-[ext_resource type="Script" uid="uid://c7v6ujk538yrt" path="res://scripts/states/falling.gd" id="6_itb1u"]
-[ext_resource type="Script" uid="uid://dp7d3iwwtfv6w" path="res://scripts/states/running.gd" id="8_br3hp"]
+[ext_resource type="Script" uid="uid://cdp6jb7a06cct" path="res://scripts/states/player states/idle.gd" id="3_5lg0j"]
+[ext_resource type="Script" uid="uid://ckugq861uw51f" path="res://scripts/states/player states/walking.gd" id="3_f4fvq"]
+[ext_resource type="Texture2D" uid="uid://ba0y43hrefbyr" path="res://assets/palette_pirate_jam.png" id="3_jej6c"]
+[ext_resource type="Script" uid="uid://b0oxn1w2721t7" path="res://scripts/states/player states/jump.gd" id="4_1rude"]
+[ext_resource type="Script" uid="uid://c7v6ujk538yrt" path="res://scripts/states/player states/falling.gd" id="6_itb1u"]
+[ext_resource type="Script" uid="uid://dp7d3iwwtfv6w" path="res://scripts/states/player states/running.gd" id="8_br3hp"]
 [ext_resource type="Script" uid="uid://mygyuq43g71" path="res://scripts/ui/pause_menu.gd" id="8_ku6nf"]
 [ext_resource type="Texture2D" uid="uid://c5esu0nwrv5gu" path="res://assets/cogs.png" id="9_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://bp35vrolpnn2p" path="res://scenes/dummy.tscn" id="13_a8b2x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ej7"]
 shader = ExtResource("2_3v2ag")
-shader_parameter/palette = ExtResource("3_3v2ag")
+shader_parameter/palette = ExtResource("3_jej6c")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0e5dj"]
 radius = 0.35
