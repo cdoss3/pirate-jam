@@ -1,0 +1,145 @@
+[gd_scene load_steps=10 format=3 uid="uid://koecfxs7wsdo"]
+
+[ext_resource type="PackedScene" uid="uid://2q4hppgb1k5c" path="res://assets/Objects/model.gltf" id="1_o3tkm"]
+[ext_resource type="Texture2D" uid="uid://bsnq8dapve8ny" path="res://assets/Objects/model_0.png" id="2_wglf0"]
+[ext_resource type="PackedScene" uid="uid://duyb0w2ayelny" path="res://scenes/player.tscn" id="3_4as0u"]
+[ext_resource type="PackedScene" uid="uid://dtu0y14tfrmvc" path="res://scenes/hud.tscn" id="4_wglf0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ky23g"]
+frequency = 0.0135
+offset = Vector3(20.6, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ciawh"]
+width = 128
+height = 128
+seamless = true
+seamless_blend_skirt = 0.0
+noise = SubResource("FastNoiseLite_ky23g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ygpt"]
+albedo_texture = ExtResource("2_wglf0")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_ciawh")
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y2bgq"]
+size = Vector2(50, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_26gaw"]
+size = Vector3(50, 0.2, 50)
+
+[node name="City" type="Node3D"]
+
+[node name="blockbench_export8" parent="." instance=ExtResource("1_o3tkm")]
+
+[node name="blockbench_export" parent="blockbench_export8" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
+
+[node name="blockbench_export2" parent="blockbench_export8" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="blockbench_export3" parent="blockbench_export8" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
+
+[node name="blockbench_export4" parent="blockbench_export8" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28, 0)
+
+[node name="blockbench_export5" parent="blockbench_export8" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="blockbench_export6" parent="blockbench_export8" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+
+[node name="blockbench_export7" parent="blockbench_export8" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+
+[node name="blockbench_export" parent="." instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0)
+
+[node name="blockbench_export" parent="blockbench_export" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
+
+[node name="blockbench_export2" parent="blockbench_export" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="blockbench_export3" parent="blockbench_export" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
+
+[node name="blockbench_export4" parent="blockbench_export" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28, 0)
+
+[node name="blockbench_export5" parent="blockbench_export" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="blockbench_export6" parent="blockbench_export" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+
+[node name="blockbench_export7" parent="blockbench_export" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_2ygpt")
+mesh = SubResource("PlaneMesh_y2bgq")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_26gaw")
+
+[node name="Player" parent="." instance=ExtResource("3_4as0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -4)
+
+[node name="HUD" parent="." instance=ExtResource("4_wglf0")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 2, 0)
+
+[node name="blockbench_export9" parent="." instance=ExtResource("1_o3tkm")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 7.88074, 0, -8.09413)
+
+[node name="blockbench_export" parent="blockbench_export9" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
+
+[node name="blockbench_export2" parent="blockbench_export9" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="blockbench_export3" parent="blockbench_export9" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
+
+[node name="blockbench_export4" parent="blockbench_export9" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28, 0)
+
+[node name="blockbench_export5" parent="blockbench_export9" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="blockbench_export6" parent="blockbench_export9" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+
+[node name="blockbench_export7" parent="blockbench_export9" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+
+[node name="blockbench_export2" parent="." instance=ExtResource("1_o3tkm")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 1.11926, 0, -9.90587)
+
+[node name="blockbench_export" parent="blockbench_export2" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0)
+
+[node name="blockbench_export2" parent="blockbench_export2" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="blockbench_export3" parent="blockbench_export2" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0)
+
+[node name="blockbench_export4" parent="blockbench_export2" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28, 0)
+
+[node name="blockbench_export5" parent="blockbench_export2" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="blockbench_export6" parent="blockbench_export2" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+
+[node name="blockbench_export7" parent="blockbench_export2" instance=ExtResource("1_o3tkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
