@@ -411,7 +411,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 bones/55/rotation = Quaternion(0.13524, 0.0850444, 0.984206, -0.0762623)
 bones/56/rotation = Quaternion(-0.0384639, 0.992578, -0.114579, 0.0134838)
 bones/57/rotation = Quaternion(-0.0410903, 0.710582, -0.700735, 0.0485357)
-bones/58/rotation = Quaternion(-9.13731e-08, 0.999075, 0.0429963, 6.37142e-08)
 bones/60/rotation = Quaternion(-0.0904664, -0.0101558, 0.995416, -0.0293275)
 bones/61/rotation = Quaternion(0.0330231, 0.994404, -0.0560472, -0.0832372)
 bones/62/rotation = Quaternion(0.00965961, 0.685274, -0.727659, -0.0286048)
@@ -421,15 +420,6 @@ bones/63/rotation = Quaternion(1.05367e-07, 0.997981, 0.0635122, -3.02931e-08)
 target_node = NodePath("../../../../FPCam/LookAt")
 bone_name = "Head"
 bone = 5
-
-[node name="BoneAttachment3D2" parent="dummy/Hit_Collision" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.17687e-05, 1.21361, -0.0264963)
-
-[node name="BoneAttachment3D3" parent="dummy/Hit_Collision" index="1"]
-transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.187578, 1.43567, -0.0617147)
-
-[node name="BoneAttachment3D4" parent="dummy/Hit_Collision" index="2"]
-transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.187638, 1.43564, -0.0617141)
 
 [node name="BoneAttachment3D5" parent="dummy/Hit_Collision" index="3"]
 transform = Transform3D(-0.951788, 0.173118, 0.253237, -0.127113, -0.973903, 0.18803, 0.279179, 0.146775, 0.948955, 0.0912445, 0.931355, -0.000553292)
@@ -442,24 +432,6 @@ transform = Transform3D(0.941629, 0.025383, 0.335694, -0.0233519, -0.989827, 0.1
 
 [node name="BoneAttachment3D8" parent="dummy/Hit_Collision" index="6"]
 transform = Transform3D(0.930326, 0.179932, -0.319559, 0.200688, -0.9791, 0.0329637, -0.306949, -0.0947988, -0.946993, 0.162546, 0.535337, 0.0534546)
-
-[node name="BoneAttachment3D9" parent="dummy/Hit_Collision" index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4555e-05, 1.60075, -0.00340755)
-
-[node name="BoneAttachment3D10" parent="dummy/Hit_Collision" index="8"]
-transform = Transform3D(0, 1, 0, -1, 0, 0, 0, 0, 1, 0.461625, 1.4357, -0.0617148)
-
-[node name="BoneAttachment3D11" parent="dummy/Hit_Collision" index="9"]
-transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, -0.461684, 1.43562, -0.061714)
-
-[node name="BoneAttachment3D12" parent="dummy/Hit_Collision" index="10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.75701e-08, 0.997919, 4.84474e-07)
-
-[node name="BoneAttachment3D13" parent="dummy/Hit_Collision" index="11"]
-transform = Transform3D(0, -1, 0, 0, 0, -1, 1, 0, 0, -0.737829, 1.43559, -0.0617137)
-
-[node name="BoneAttachment3D14" parent="dummy/Hit_Collision" index="12"]
-transform = Transform3D(0, 1, 0, 0, 0, -1, -1, 0, 0, 0.73777, 1.43572, -0.0617147)
 
 [node name="BoneAttachment3D15" parent="dummy/Hit_Collision" index="13"]
 transform = Transform3D(-0.930078, -0.363205, -0.0551063, -0.0274714, -0.0808211, 0.99635, -0.366333, 0.928197, 0.0651921, -0.0483819, 0.112809, -0.0893424)
