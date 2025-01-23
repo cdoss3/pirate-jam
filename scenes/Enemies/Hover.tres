@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://c0qtgmo1a3fvb"]
+
+[ext_resource type="Texture2D" uid="uid://uwjikk5j8o5k" path="res://assets/Enemys/Hover_0.png" id="1_iqen7"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_48hpc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8swre"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_48hpc")
+
+[resource]
+albedo_color = Color(0.470076, 0.470076, 0.470076, 1)
+albedo_texture = ExtResource("1_iqen7")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_8swre")
+texture_filter = 0

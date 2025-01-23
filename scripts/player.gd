@@ -151,6 +151,7 @@ func shoot():
 	if pistol.current_ammo != 0:
 		print("Shot!")
 		pistol.current_ammo -= 1
+		$FPCam/Hand/Pistol/AnimationPlayer.play("shoot")
 		if hit_ray.is_colliding():
 			collider = hit_ray.get_collider()
 			if collider.is_in_group("Enemy"):

@@ -1,7 +1,68 @@
-[gd_scene load_steps=3 format=3 uid="uid://dah1twi5onj21"]
+[gd_scene load_steps=6 format=3 uid="uid://dah1twi5onj21"]
 
 [ext_resource type="Script" uid="uid://c6ykk55c8uluf" path="res://scripts/Weapons/WeaponB.gd" id="1_ab5uy"]
 [ext_resource type="PackedScene" uid="uid://cm4xpt8q03ily" path="res://scenes/Weapons/low-poly_g17.glb" id="1_chj1e"]
+
+[sub_resource type="Animation" id="Animation_62d4k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon Model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon Model:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_othox"]
+resource_name = "shoot"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Weapon Model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0666667, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0874981, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Weapon Model:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.0666667, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.259443), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0xyoy"]
+_data = {
+&"RESET": SubResource("Animation_62d4k"),
+&"shoot": SubResource("Animation_othox")
+}
 
 [node name="Pistol" type="Node3D"]
 script = ExtResource("1_ab5uy")
@@ -10,7 +71,9 @@ script = ExtResource("1_ab5uy")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("")
+libraries = {
+&"": SubResource("AnimationLibrary_0xyoy")
+}
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.433697, 0.142389, 0)
