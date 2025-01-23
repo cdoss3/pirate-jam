@@ -1,8 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://duyb0w2ayelny"]
+[gd_scene load_steps=28 format=3 uid="uid://duyb0w2ayelny"]
 
 [ext_resource type="Script" uid="uid://7mop8f38ra1w" path="res://scripts/player.gd" id="1_t8h3g"]
-[ext_resource type="PackedScene" uid="uid://dah1twi5onj21" path="res://scenes/Weapons/Pistol.tscn" id="2_d2wvv"]
 [ext_resource type="Shader" uid="uid://d4ljvkwmjtnyt" path="res://materials/shaderscripts/palette_swap.gdshader" id="2_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://dah1twi5onj21" path="res://scenes/Weapons/Pistol.tscn" id="2_d2wvv"]
 [ext_resource type="Script" uid="uid://cd18oofinnqir" path="res://scripts/state_machine.gd" id="2_vbrc4"]
 [ext_resource type="Texture2D" uid="uid://dmv1lh563cr1x" path="res://assets/palette.png" id="3_3v2ag"]
 [ext_resource type="Script" uid="uid://cdp6jb7a06cct" path="res://scripts/states/idle.gd" id="3_5lg0j"]
@@ -473,4 +473,5 @@ transform = Transform3D(-0.941908, 0.331086, -0.0564958, -0.0756653, -0.0452872,
 [connection signal="pressed" from="Hud/PauseMenu/ColorRect/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer2/MenuButton" to="Hud/PauseMenu" method="_on_menu_button_pressed"]
 [connection signal="pressed" from="Hud/PauseMenu/Options/Close" to="Hud/PauseMenu" method="_on_options_button_pressed"]
 
+[editable path="FPCam/Hand/Pistol"]
 [editable path="dummy"]
