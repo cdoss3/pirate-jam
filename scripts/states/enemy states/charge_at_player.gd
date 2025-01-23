@@ -1,21 +1,33 @@
 extends EnemyState
 
+@onready var proximity: Area3D = $"../../Proximity"
+
 @export var Minimum : float
 @export var Maximum : float
 
-var _time_until_finished = 5.0
+var _time_until_finished = Global.timeElapsed + randf_range(Minimum, Maximum)
 var current_speed : float = 0.0
-var acceleration : float = 0.3
+var acceleration : float = 0.7
 var max_speed : float = 10.0
+var is_player_in_range : bool = false
+
+func _ready() -> void:
+	await proximity.ready
+	proximity.body_entered.connect(func(body : Node3D) -> void:
+		if body is Player:
+			is_player_in_range = true)
+	proximity.body_exited.connect(func(body : Node3D) -> void:
+		if body is Player:
+			is_player_in_range = false)
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-	_time_until_finished = Global.timeElapsed + randf_range(Minimum, Maximum)
 	current_speed = 0.0
 
 func physics_update(delta: float) -> void:
 	if Global.timeElapsed < _time_until_finished:
 		# Accelerate towards the player
 		current_speed = min(current_speed + acceleration * delta, max_speed)
+		
 		var current_location = enemy.global_transform.origin
 		var next_location = enemy.nav_agent.get_next_path_position()
 		var direction = (next_location - current_location).normalized()
@@ -34,6 +46,9 @@ func physics_update(delta: float) -> void:
 			enemy.nav_agent.set_velocity(new_velocity)
 		else:
 			enemy.nav_agent.set_velocity(Vector3.ZERO)
+	
+	if is_player_in_range:
+		finished.emit()
 	
 	enemy.nav_agent.target_position = Global.player.position
 	enemy.move_and_slide()

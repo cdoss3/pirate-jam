@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bevfhgm7ksacu"]
+
+[ext_resource type="Script" uid="uid://c13agafi3w0qs" path="res://scripts/Enemies/enemy.gd" id="1_5alqo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8tegq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ona5g"]
+transparency = 1
+albedo_color = Color(0.362466, 0.686737, 0.7416, 0.223529)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bqhw6"]
+material = SubResource("StandardMaterial3D_ona5g")
+size = Vector3(0.4, 0.75, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7p1mj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8swre"]
+radius = 3.0
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
+script = ExtResource("1_5alqo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_8tegq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.469241, -0.247679)
+mesh = SubResource("BoxMesh_bqhw6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7p1mj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 1.0
+max_speed = 200.0
+avoidance_priority = 0.5
+debug_enabled = true
+
+[node name="Proximity" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Proximity"]
+shape = SubResource("SphereShape3D_8swre")
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
