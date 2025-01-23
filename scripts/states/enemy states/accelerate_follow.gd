@@ -3,21 +3,13 @@ extends EnemyState
 @export var Minimum : float
 @export var Maximum : float
 
-<<<<<<< Updated upstream
 var _time_until_finished = 5.0
-=======
-var _time_until_finished = 0.3
->>>>>>> Stashed changes
 var current_speed : float = 0.0
 var acceleration : float = 0.3
 var max_speed : float = 10.0
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-<<<<<<< Updated upstream
 	_time_until_finished = Global.timeElapsed + randf_range(Minimum, Maximum)
-=======
-	_time_until_finished = Global.timeElapsed + randf_range(Minimum, Maximum) * 1000
->>>>>>> Stashed changes
 	current_speed = 0.0
 
 func physics_update(delta: float) -> void:
