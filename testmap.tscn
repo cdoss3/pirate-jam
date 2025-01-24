@@ -1,10 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://djrya13pqpmwj"]
+[gd_scene load_steps=22 format=3 uid="uid://djrya13pqpmwj"]
 
 [ext_resource type="Script" uid="uid://bsrcspqxa6mqa" path="res://scripts/Levels/testmap.gd" id="1_8vdae"]
 [ext_resource type="Material" uid="uid://u7jdafyhlaf6" path="res://materials/grid.tres" id="1_cas5d"]
 [ext_resource type="PackedScene" uid="uid://duyb0w2ayelny" path="res://scenes/player.tscn" id="1_mvqnx"]
 [ext_resource type="PackedScene" uid="uid://dtu0y14tfrmvc" path="res://scenes/hud.tscn" id="3_ys0t5"]
 [ext_resource type="PackedScene" uid="uid://bevfhgm7ksacu" path="res://scenes/Enemies/enemy.tscn" id="5_6seei"]
+[ext_resource type="PackedScene" uid="uid://bevfhgm7ksacu" path="res://scenes/Enemies/charging_enemy.tscn" id="6_dbxb2"]
+[ext_resource type="PackedScene" uid="uid://bmoqtqw02ghk4" path="res://scenes/Enemies/enemy_riot.tscn" id="7_ov2oi"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_llxnc"]
 viewport_path = NodePath("SubViewport")
@@ -212,5 +214,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.4433, 1.1, 25.1692)
 
 [node name="Enemy3" parent="." instance=ExtResource("5_6seei")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.8091, 1.1, 29.0016)
+
+[node name="Enemy4" parent="." instance=ExtResource("6_dbxb2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7178, 1.28345, 26.8665)
+
+[node name="Riot" parent="." instance=ExtResource("7_ov2oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9619, 0.921317, 31.1784)
 
 [connection signal="health_changed" from="Player" to="HUD" method="_on_player_health_changed"]

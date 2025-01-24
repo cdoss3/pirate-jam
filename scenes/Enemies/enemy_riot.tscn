@@ -1,0 +1,67 @@
+[gd_scene load_steps=12 format=3 uid="uid://bmoqtqw02ghk4"]
+
+[ext_resource type="Script" uid="uid://bllgeq5tgdmtb" path="res://scripts/Enemies/enemy_class.gd" id="1_5wnej"]
+[ext_resource type="Script" uid="uid://d1r6jd4wpx3is" path="res://scripts/Enemies/enemy_riot.gd" id="1_icg76"]
+[ext_resource type="PackedScene" uid="uid://cnbgnvg027hls" path="res://assets/Enemys/Hover_Riot.gltf" id="2_icg76"]
+[ext_resource type="Texture2D" uid="uid://pppx6efnsj2e" path="res://assets/Enemys/Hover_Riot_0.png" id="3_cjnrx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ak7pd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2680d"]
+radius = 3.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lx34j"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uawls"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_lx34j")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5afgv"]
+albedo_texture = ExtResource("3_cjnrx")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_uawls")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5wnej"]
+size = Vector3(1.15625, 1.54639, 0.234375)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_icg76"]
+size = Vector3(1.15625, 0.90863, 0.234375)
+
+[node name="Riot" type="CharacterBody3D"]
+script = ExtResource("1_icg76")
+metadata/_custom_type_script = ExtResource("1_5wnej")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ak7pd")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 1.0
+max_speed = 200.0
+avoidance_priority = 0.5
+debug_enabled = true
+
+[node name="Proximity" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Proximity"]
+shape = SubResource("SphereShape3D_2680d")
+
+[node name="blockbench_export" parent="." instance=ExtResource("2_icg76")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="sphere" parent="blockbench_export/Node" index="0"]
+material_override = SubResource("StandardMaterial3D_5afgv")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.035933, 0.144474, -0.499825)
+shape = SubResource("BoxShape3D_5wnej")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.998334, -0.0577034, 0, 0.0577034, 0.998334, 0.035933, 1.50954, -0.482442)
+shape = SubResource("BoxShape3D_icg76")
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+
+[editable path="blockbench_export"]
